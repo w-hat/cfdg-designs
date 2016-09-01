@@ -1,0 +1,27 @@
+CF::Size = [s 2.2 2.2]
+CF::Background = [b -.8 h 130 sat 1]
+
+startshape balance
+
+shape balance {
+  glow [s 3 a -1 z -1]
+  half []
+  half [b 1 r 180]
+  half [x  .5 s .5 b 1]
+  half [x -.5 s .5 r 180]
+  //CIRCLE[x  .5 s (3/8)]
+  //CIRCLE[x -.5 s (3/8) b 1]
+  balance [x  .5 s (3/8) r 180]
+  balance [x -.5 s (3/8) r 180]
+}
+
+path half {
+  MOVETO (1, 0)
+  ARCTO (-1, 0, 1)
+  FILL () []
+}
+
+shape glow {
+  CIRCLE [b 1]
+  glow [s .99 a .0002]
+}
