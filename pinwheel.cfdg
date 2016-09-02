@@ -1,0 +1,39 @@
+CF::Size = [s 1.3 1.3 x -1.35 y -0.65]
+CF::MinimumSize = 2
+//CF::Background = [b -1]
+
+// Increase iterations for smaller triangles.
+iterations = 3
+dilation = 1/sqrt(5)
+θ = asin(dilation)
+
+startshape pinwheel(0) [sat 0.7 h 160]
+
+shape pinwheel (natural depth) {
+  //pinwheel(depth) [x 1 s dilation r θ]
+  pin(depth) [x 1]
+  pin(depth) [x 1 f 90]
+  pin(depth) [x 2 y 2 f 90]
+  pin(depth) [x 2 y 2  r 180]
+  pin(depth) [x 2 f 45 r 180]
+}
+
+shape pin (natural depth)
+
+rule {
+  if(depth > iterations) {
+    triangle [s 0.9 b 1 x 0.04 y 0.04 h 0..20]
+    //triangle [b 1 h 0..20]
+  } else {
+    pinwheel(depth+1) [s dilation r θ h 0..20]
+  }
+}
+
+// Experiment by enabling (part of) this rule.
+//rule {
+//  triangle [b 1 h 0..20]
+//  pinwheel(depth+1) [s dilation r θ h 0..20]
+//}
+
+path triangle { LINETO(1,0) LINETO(0,2) }
+
