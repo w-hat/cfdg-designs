@@ -1,33 +1,48 @@
-startshape eye []
+CF::Background = [b .9 h 40 sat .2]
 
-shape eye {
-  loop (10)  [r 18] { vein [x 1.5] }
-  loop (360) [r 1]  { CIRCLE [x 1.7 z 1] }
-  CIRCLE [s 4 b 1 z 1]
-  CIRCLE [s 2 b 1 h 200 sat .7 z 1]
-  CIRCLE [b -1 z 1]
+startshape eyeball [r rand(360)]
+
+shape eyeball {
+  loop rr=(-3,3) [] { vein [[r (8*rr) z -rand(9) x 1.5]] }
+  loop (360) [r 1] { CIRCLE [x 1.7 z 1] }
+  CIRCLE [s 4 b 1 z 2]
+  iris [s .8 1 x -1 z 2]
 }
 
 shape vein
 
 rule 60 {
-  CIRCLE []
+  segment []
   vein [z -.1 x .3 r -1.7 s .98]
 }
 
 rule 14 {
-  CIRCLE []
+  segment []
   vein [x .3 s .98]
 }
 
 rule 4 {
-  CIRCLE []
+  segment []
   vein [x .3 r -1.7 s .72 z -.2]
   vein [x .3 r -1.7 f 0 s .93]
 }
 
 rule 1 {
-  CIRCLE []
+  segment []
   vein [x .3 f 0 s .98]
+}
+
+shape segment {
+  CIRCLE [z -.1]
+  CIRCLE [b .6 s .9 sat .6 a -.5]
+  CIRCLE [b .6 s .9 sat .6 a -.5 x .1]
+}
+
+shape iris {
+  CIRCLE [s 2 b 1 h 200 sat .7]
+  CIRCLE [b -1 z 1]
+  loop 60 [r 6] {
+    TRIANGLE [x .3...4 b .7 a -.75 h 30 sat 1 s 1 .1]
+  }
 }
 

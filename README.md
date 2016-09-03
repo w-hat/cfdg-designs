@@ -6,6 +6,8 @@ designs.
 Build the images locally with `make`
 or view the published ones online:
 
-  * [Yin Yang](http://www.contextfreeart.org/gallery/view.php?id=3739)
+ * [Eyeball](http://www.contextfreeart.org/gallery/view.php?id=3741)
+ * [Pinwheel](http://www.contextfreeart.org/gallery/view.php?id=3740)
+ * [Yin Yang](http://www.contextfreeart.org/gallery/view.php?id=3739)
 
 
