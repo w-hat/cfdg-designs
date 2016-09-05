@@ -1,0 +1,16 @@
+CF::Background = [b -.8]
+CF::Tile = [skew 2 5 r -5 s 5]
+
+startshape gray
+
+shape gray {
+  loop (200) [x .35 y .85] { CIRCLE [a -.8] }
+  spark [s .6 sat 1 h 8 a -1]
+}
+
+shape spark {
+  CIRCLE []
+  loop (16) [s 0.88..0.92 r 68..89 b .5] {
+    spark [x .8 s (3/4) (1/3) h 5..8 a .2]
+  }
+}
