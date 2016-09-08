@@ -1,0 +1,13 @@
+startshape epicycloid
+
+A = (1/randint(3, 9))
+B = (1/randint(6,10))
+ 
+vector2 xy(t) = ((A+B)*cos(t) - B * cos((A/B + 1) * t),
+                 (A+B)*sin(t) - B * sin((A/B + 1) * t))
+
+shape epicycloid {
+  loop t=(0, 24 * 180 + .5, .5) [] {
+    CIRCLE [s .02 x xy(t)]
+  }
+}

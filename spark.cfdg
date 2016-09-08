@@ -4,7 +4,7 @@ CF::Tile = [skew 2 5 r -5 s 5]
 startshape gray
 
 shape gray {
-  loop (200) [x .35 y .85] { CIRCLE [a -.8] }
+  loop (200) [x .35 y .8] { CIRCLE [a -.8] }
   spark [s .6 sat 1 h 8 a -1]
 }
 
