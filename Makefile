@@ -1,7 +1,7 @@
 
-SIZE=1600
+SIZE=3200
 
-all: epicycloid.png eyeball.png pinwheel.png spark.png yin-yang.png
+all: epicycloid.png eyeball.png julia.png pinwheel.png spark.png yin-yang.png
 
 clean:
 	rm *.png
@@ -11,6 +11,9 @@ epicycloid.png: epicycloid.cfdg
 
 eyeball.png: eyeball.cfdg
 	cfdg -s $(SIZE) eyeball.cfdg eyeball.png
+
+julia.png: julia.cfdg
+	cfdg -s $(SIZE) julia.cfdg julia.png
 
 pinwheel.png: pinwheel.cfdg
 	cfdg -s $(SIZE) pinwheel.cfdg pinwheel.png
