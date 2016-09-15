@@ -1,16 +1,23 @@
 CF::Background = [b -.8]
 CF::Tile = [skew 2 5 r -5 s 5]
 
-startshape gray
+map = rand_static(.30,.45)
+reduce = rand_static(.7,1)
 
-shape gray {
-  loop (200) [x .35 y .8] { CIRCLE [a -.8] }
-  spark [s .6 sat 1 h 8 a -1]
+startshape hadoop
+shape hadoop {
+  loop 200 [x map y reduce] { data [a -1] }
+  spark [s .7 sat 1 h 8 a -1]
+}
+
+shape data {
+  CIRCLE [a .03]
+  data [s .9]
 }
 
 shape spark {
   CIRCLE []
-  loop (16) [s 0.88..0.92 r 68..89 b .5] {
-    spark [x .8 s (3/4) (1/3) h 5..8 a .2]
+  loop 16 [s 0.88..0.92 r 68..89 b .5] {
+    spark [x .8 s .75 .33 h 5..8 a .2]
   }
 }
