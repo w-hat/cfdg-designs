@@ -1,0 +1,48 @@
+startshape spline
+
+// (1/4680) * [1351,-362,97,-26,7,-2,1,-2,7,-26,97,-362]
+
+vector12 rep12(v) = (v,v,v,v,v,v,v,v,v,v,v,v)
+
+vector12 shift(vector12 v, i) = (
+  v[mod(0+i,12)], v[mod(1+i,12)], v[mod(2+i,12)],
+  v[mod(3+i,12)], v[mod(4+i,12)], v[mod(5+i,12)],
+  v[mod(6+i,12)], v[mod(7+i,12)], v[mod(8+i,12)],
+  v[mod(9+i,12)], v[mod(10+i,12)],v[mod(11+i,12)])
+
+minv = rep12(1/4680) *
+  (1351, -362, 97, -26, 7, -2, 1, -2, 7, -26, 97, -362)
+
+yv = (0..3, 0..3, 0..3, 0..3, 0..3, 0..3,
+      0..3, 0..3, 0..3, 0..3, 0..3, 0..3)
+
+ydiffs = rep12(3) *
+  (yv[1]-yv[11], yv[2]-yv[0],  yv[3]-yv[1],  yv[4]-yv[2],
+   yv[5]-yv[3],  yv[6]-yv[4],  yv[7]-yv[5],  yv[8]-yv[6],
+   yv[9]-yv[7],  yv[10]-yv[8], yv[11]-yv[9], yv[0]-yv[10])
+
+dotprod(vector12 v1, vector12 v2) =
+  v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2] +
+  v1[3]*v2[3] + v1[4]*v2[4] + v1[5]*v2[5] +
+  v1[6]*v2[6] + v1[7]*v2[7] + v1[8]*v2[8] +
+  v1[9]*v2[9] +v1[10]*v2[10]+v1[11]*v2[11]
+
+ith_spline_at(i, t) = let(
+  A = yv[i];
+  B = dotprod(shift(minv, i), ydiffs);
+  B2 = dotprod(shift(minv, i+1), ydiffs);
+  C = 3 * (yv[mod(i+1,12)] - yv[i]) - 2 * B - B2;
+  D = 2 * (yv[i] - yv[mod(i+1,12)]) + B + B2;
+  A + B*t + C*t^2 + D*t^3)
+
+shape spline {
+  loop i = (13) [] {
+    CIRCLE [x (i,yv[mod(i,12)]) s .3 z -1 b 1 sat .8 h 240]
+  }
+  
+  loop i = (0, 12, 1/100) [] {
+    t = i - floor(i)
+    yy = ith_spline_at(floor(i), t)
+    CIRCLE [x (i, yy) s .07]
+  }
+}
