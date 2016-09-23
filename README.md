@@ -3,7 +3,7 @@
 This repository contains a small collection of
 [CFDG](http://www.contextfreeart.org/gallery/)
 designs.
-Build the images locally with `make`
+Build the images locally with `cfdg` via `make`
 or view the published ones online:
 
 | [Yin Yang](http://www.contextfreeart.org/gallery/view.php?id=3739) | [Pinwheel](http://www.contextfreeart.org/gallery/view.php?id=3740) | [Eyeball](http://www.contextfreeart.org/gallery/view.php?id=3741) |

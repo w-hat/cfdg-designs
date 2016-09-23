@@ -1,0 +1,39 @@
+CF::Impure = 1
+CF::Size = [s 500 500 x 249.5 y 249.5]
+
+// https://en.wikipedia.org/wiki/Rule_110
+
+// 111   110   101   100   011   010   001   000
+//  0     1     1     0     1     1     1     0
+
+rule110(lb, mb, rb) =
+  if (lb > 0, bitxor(mb, rb), bitor(mb, rb))
+
+startshape row ((0,0,0,0,0,0,0,0,0,0)) []
+
+shape row (vector10 state) {
+  loop i=(500) [x -1] {
+    if (bitand(state[div(i,50)], bitleft(1, mod(i,50)))) {
+      SQUARE []
+    }
+  }
+  if (state[9] < 2^49) { row (next(state)) [y -1] }
+}
+
+vector10 next(vector10 S) =
+ (nextpart(S,0,1,1), nextpart(S,1,0,0),
+  nextpart(S,2,0,0), nextpart(S,3,0,0),
+  nextpart(S,4,0,0), nextpart(S,5,0,0),
+  nextpart(S,6,0,0), nextpart(S,7,0,0),
+  nextpart(S,8,0,0), nextpart(S,9,0,0))
+
+nextpart(vector10 S, pix, p0, bix) = if (bix==50, p0, let(
+  lb = if (bix == 49, if(pix < 9, bit(S[pix+1],0), 1),
+                      bit(S[pix],bix+1));
+  mb = bit(S[pix], bix);
+  rb = if (bix == 0, bit(S[pix-1],49), bit(S[pix],bix-1));
+  partial = bitor(p0, bitleft(rule110(lb, mb, rb), bix));
+  nextpart(S, pix, partial, bix + 1)))
+
+bit(bitvector, ix) =
+  bitright(bitand(bitvector, bitleft(1, ix)), ix)
