@@ -1,0 +1,26 @@
+CF::Size = [s 4.5 4.5 x -2.25 y (-1.25*sqrt(3))]
+
+startshape squiggles []
+shape      squiggles {
+  loop 6 [x 1] loop i=(6) [x (mod(i,2)-.5) y sqrt(3/4)] {
+    squiggle [r (60*randint(6))]
+  }
+}
+
+shape squiggle {
+  small_arc [a -.3]
+  big_arc [r 180 a -.5]
+  big_arc [r 240 a -.1]
+}
+
+path small_arc {
+  MOVETO(-.25, sqrt(3)/4)
+  ARCTO(.25, sqrt(3)/4, sqrt(3)/6)
+  STROKE(CF::RoundCap) []
+}
+
+path big_arc {
+  MOVETO(-.25, sqrt(3)/4)
+  ARCTO(.5, 0, sqrt(3/4))
+  STROKE(CF::RoundCap) []
+}
