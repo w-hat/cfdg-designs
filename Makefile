@@ -1,7 +1,7 @@
 
 SIZE=1600
 
-all: epicycloid.png eyeball.png julia.png pinwheel.png rule110.png spark.png spline.png squiggles.png yin-yang.png
+all: epicycloid.png eyeball.png julia.png pinwheel.png rule110.png spark.png spline.png squiggles.png vines.png yin-yang.png
 
 clean:
 	rm *.png
@@ -19,7 +19,7 @@ pinwheel.png: pinwheel.cfdg
 	cfdg -s $(SIZE) pinwheel.cfdg pinwheel.png
 
 rule110.png: rule110.cfdg
-	cfdg -s 1000 rule110.cfdg rule110.png
+	cfdg -s $(SIZE) rule110.cfdg rule110.png
 
 spark.png: spark.cfdg
 	cfdg -s $(SIZE) spark.cfdg spark.png
@@ -29,6 +29,9 @@ spline.png: spline.cfdg
 
 squiggles.png: squiggles.cfdg
 	cfdg -s $(SIZE) squiggles.cfdg squiggles.png
+
+vines.png: vines.cfdg
+	cfdg -s $(SIZE) vines.cfdg vines.png
 
 yin-yang.png: yin-yang.cfdg
 	cfdg -s $(SIZE) yin-yang.cfdg yin-yang.png
