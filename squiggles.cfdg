@@ -1,26 +1,33 @@
-CF::Size = [s 4.5 4.5 x -2.25 y (-1.25*sqrt(3))]
+CF::Size = [s 13 13 x -7 y -7]
 
-startshape squiggles []
-shape      squiggles {
-  loop 6 [x 1] loop i=(6) [x (mod(i,2)-.5) y sqrt(3/4)] {
-    squiggle [r (60*randint(6))]
+startshape squiggles (1) [sat 1 b 1]
+
+shape squiggles (natural depth) {
+  loop hx = 14 [x 1] {
+    loop hy = 16 [x (mod(hy,2)-.5, sqrt(3)/2)] {
+      squiggle [r (60*randint(6))]
+    }
+  }
+  if (depth < 4) transform [s .5 z -1 hue 5 a -.1] {
+    squiggles (depth+1) []
+    squiggles (depth+1) [x 14]
+    squiggles (depth+1) [y (8*sqrt(3))]
+    squiggles (depth+1) [x 14 y (8*sqrt(3))]
   }
 }
 
 shape squiggle {
-  small_arc [a -.3]
-  big_arc [r 180 a -.5]
-  big_arc [r 240 a -.1]
+  small_arc [a -.3 y sqrt(1/3) h 40]
+  big_arc [[r 150  y 1]]
+  big_arc [[r -150 y 1]]
 }
 
-path small_arc {
-  MOVETO(-.25, sqrt(3)/4)
-  ARCTO(.25, sqrt(3)/4, sqrt(3)/6)
-  STROKE(CF::RoundCap) []
+shape small_arc {
+  loop t = 120 [] CIRCLE [[r (t-60) y -sqrt(1/12) s .05]]
 }
 
-path big_arc {
-  MOVETO(-.25, sqrt(3)/4)
-  ARCTO(.5, 0, sqrt(3/4))
-  STROKE(CF::RoundCap) []
+shape big_arc {
+  loop t = (-30,30) [] {
+    CIRCLE [[r t y -sqrt(3/4) s .05 h (30 + abs(t)/3)]]
+  }
 }
