@@ -1,0 +1,40 @@
+P = 400
+CF::Size = [s P P x (-P/2) y (-P/2)]
+
+R = floor(120..180)
+O = (floor(0..R), floor(0..R))
+D = floor(-2..32)
+W = (floor(-2..32), floor(-15..105))
+H = (0..3600, 0..400, 0..400)
+S = (if (H[0] < 360, 0, -1),
+     if (H[1] < 360, 0, -2..1),
+     if (H[2] < 360, 0, -2...5))
+B = (if (H[0] < 360, -.1...1, if (H[0] < 1890,.9, -.9)),
+     if (H[1] < 360, -.1...1, if (H[1] < 380, .9, -.9)),
+     if (H[2] < 360, -.1...1, if (H[2] < 380, .9, -.9)))
+
+startshape plaid [b .7 sat .8]
+
+shape plaid {
+  loop i=(P+1) [x 1] loop j=(P+1) [y 1] {
+    k  = mod(floor((i + j)/2), 2)
+    ix = mod(i*k + j*(1-k) + O[k], R)
+    stitch (ix) [h (7*k) b (.1*k)]
+  }
+}
+
+shape stitch (ix) {
+  if (((ix > R - D - W[0]) && (ix < R - D)) ||
+      ((ix > D) && (ix < D + W[0]))) {
+    fuzzy [h H[0] sat S[0] b B[0]]
+  } else if ((ix > R/2 - W[1]) && (ix < R/2 + W[1])) {
+    fuzzy [h H[1] sat S[1] b B[1]]
+  } else {
+    fuzzy [h H[2] sat S[2] b B[2]]
+  }
+}
+
+shape fuzzy {
+  SQUARE []
+  fuzzy [s .6 x (-2..2, -2..2) a -.2]
+}
