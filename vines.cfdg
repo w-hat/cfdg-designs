@@ -19,8 +19,8 @@ shape squiggle {
 }
 
 path small_arc {
-  MOVETO(.25, sqrt(3)/4)
-  ARCTO(-.25, sqrt(3)/4, sqrt(3)/6)
+  MOVETO(-.25, sqrt(3)/4)
+  ARCTO(.25, sqrt(3)/4, sqrt(3)/6)
   STROKE(CF::RoundCap) []
 }
 

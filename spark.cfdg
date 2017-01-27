@@ -1,8 +1,8 @@
 CF::Background = [b -.8]
 CF::Tile = [skew 2 5 r -5 s 5]
 
-map = rand_static(.30,.45)
-reduce = rand_static(.7,1)
+map = .30...45
+reduce = .7..1
 
 startshape hadoop
 shape hadoop {

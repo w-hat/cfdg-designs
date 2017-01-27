@@ -40,7 +40,7 @@ shape spline {
     CIRCLE [x (i,yv[mod(i,12)]) s .3 z -1 b 1 sat .8 h 240]
   }
   
-  loop i = (0, 12, 1/100) [] {
+  loop i = (0, 12, .01) [] {
     t = i - floor(i)
     yy = ith_spline_at(floor(i), t)
     CIRCLE [x (i, yy) s .07]

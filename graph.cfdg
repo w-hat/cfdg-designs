@@ -1,0 +1,26 @@
+V = (0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,
+     0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9)
+
+E = (C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),
+     C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),
+     C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),
+     C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C())
+
+C() = if (0..1 > 0.6, 1, 0)
+
+connected(i,j) = if (j > i, connected(j,i),
+  E[i*(i-1)/2 - j + i - 1])
+
+startshape graph
+
+shape graph {
+  loop i=10 [] CIRCLE [x V[2*i] y V[2*i+1]]
+  loop i=10 [] loop j=(i) [] if (connected(i,j)) {
+    vi = (V[2*i], V[2*i+1])
+    vj = (V[2*j], V[2*j+1])
+    loop t=(0,1,.001) [] {
+      et = (t,t)*vi + (1-t,1-t)*vj
+      CIRCLE [s .1 x et]
+    }
+  }
+}
