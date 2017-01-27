@@ -4,7 +4,7 @@ c = -0.1, 0.651
 
 CF::Size = [s width width x (-width/2) y (-width/2)]
 
-startshape julia [b 1 sat 1 h 100]
+startshape julia [b 1 sat 1]
 
 shape julia {
   loop xx = (-1.5, 1.5, 3/width) [x 1] {
