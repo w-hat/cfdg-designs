@@ -1,0 +1,82 @@
+width = 800
+CF::Size = [s width width x -(width/2) y -(width/2)]
+
+startshape texture [b 0..1 h 0..360 sat -.5..1]
+
+base = 2^13 - 1
+rnd() = floor(1..base)
+seed = (rnd(),rnd(),rnd(),rnd(),rnd(),rnd())
+
+θ = 0..360
+stretch = if (0..5 > 1, 1, .2..5)
+speed = 1..10
+octs = floor(3..12)
+freq = 1..3
+pers = if (1..3 > 1, .5..1, 1..1.5)
+mix = floor(0..9)
+c0 = (0..360, 0..1, (0..4>1) && 0..1)
+c1 = (0..360, 0..1, (0..4>1) && 0..1)
+c2 = (0..360, 0..1, (0..4>1) && 0..1)
+c3 = (0..360, 0..1, (0..4>1) && 0..1)
+wt = (0..360, (0..2>1) && -.1..1, (0..2>1) && -.1..1)
+
+
+shape texture {
+  loop i=(width+1) [] loop j=(width+1) [] {
+    xx = (i*cos(θ) - j*sin(θ))/stretch
+    yy = (i*sin(θ) + j*cos(θ))*stretch
+    hsb = color(xx, yy)
+    SQUARE [x i y j h hsb[0] sat hsb[1] b hsb[2]]
+  }
+}
+
+vector3 color(xx, yy) = let(
+  v0 = mod((perlin(xx, yy)*speed+6),4);
+  if (mix<7, cmix(v0), if (mix<8, cval(v0),
+    (wt[0]*v0, wt[1]*v0, wt[2]*v0))))
+
+vector3 cmix(v) =
+  if (v<1, c0*(1-v,1-v,1-v) + c1*(v,v,v),
+  if (v<2, c1*(2-v,2-v,2-v) + c2*(v-1,v-1,v-1),
+  if (v<3, c2*(3-v,3-v,3-v) + c3*(v-2,v-2,v-2),
+           c3*(4-v,4-v,4-v) + c0*(v-3,v-3,v-3))))
+
+vector3 cval(v) = if(v<1,c0,if(v<2,c1,if(v<3,c2,c3)))
+
+perlin(xx, yy) = let(
+  res = perloop(xx, yy, 0, octs);
+  if (pers == 1, res / octs,
+    res * (1 - pers) / (1 - pers^octs)))
+
+perloop(xx, yy, res0, li) =
+  if(li<=0, res0, let(
+    fli = freq^li; // freq*li
+    s0 = bitand(seed[5]+fli, base);
+    siz = 1/200*fli;
+    res = res0 + (pers^li)*noise(xx*siz+s0,yy*siz+s0,s0);
+    perloop(xx, yy, res, li-1)))
+
+noise(x0, y0, s0) = let(
+  xi = floor(x0);      yi = floor(y0);
+  xf = x0 - xi;        yf = y0 - yi;
+  c0 = dot2(rdir(xi,   yi,   s0), (xf,  yf  ));
+  c1 = dot2(rdir(xi,   yi+1, s0), (xf,  yf-1));
+  c2 = dot2(rdir(xi+1, yi,   s0), (xf-1,yf  ));
+  c3 = dot2(rdir(xi+1, yi+1, s0), (xf-1,yf-1));
+  fx = fade(xf);
+  lerp(lerp(c0, c2, fx), lerp(c1, c3, fx), fade(yf)))
+
+vector2 rdir(i, j, s0) = let(
+  r0 = bitand(s0*seed[0]+seed[1]*i*i+seed[2]*j, base);
+  r1 = bitand(r0*r0*seed[3]*j + seed[4], base);
+  θ  = 360 * r1 / base;
+  (sin(θ), cos(θ)))
+
+vector2 unit(vector2 v) = let(
+  m = sqrt(v[0]*v[0] + v[1]*v[1]);
+  v/(m,m))
+
+dot2(vector2 v, vector2 u) = v[0]*u[0] + v[1]*u[1]
+lerp(v1, v2, t) = (1-t)*v1 + t*v2
+fade(t) = t*t*t*(t*(t*6-15)+10)
+

@@ -2,7 +2,8 @@
 SIZE=1600
 
 all: epicycloid.png eyeball.png graph.png julia.png pinwheel.png plaid.png \
-     rule110.png spark.png spline.png squiggles.png vines.png yin-yang.png
+     rule110.png spark.png spline.png squiggles.png texture.png vines.png  \
+     yin-yang.png
 
 clean:
 	rm *.png
@@ -36,6 +37,9 @@ spline.png: spline.cfdg
 
 squiggles.png: squiggles.cfdg
 	cfdg -s $(SIZE) squiggles.cfdg squiggles.png
+
+texture.png: texture.cfdg
+	cfdg -s $(SIZE) texture.cfdg texture.png
 
 vines.png: vines.cfdg
 	cfdg -s $(SIZE) vines.cfdg vines.png
