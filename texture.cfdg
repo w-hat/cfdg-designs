@@ -1,5 +1,5 @@
 width = 800
-CF::Size = [s width width x -(width/2) y -(width/2)]
+CF::Size = [s width width x -((width+1)/2) y -(width/2+.5)]
 
 startshape texture [b 0..1 h 0..360 sat -.5..1]
 
@@ -20,13 +20,12 @@ c2 = (0..360, 0..1, (0..4>1) && 0..1)
 c3 = (0..360, 0..1, (0..4>1) && 0..1)
 wt = (0..360, (0..2>1) && -.1..1, (0..2>1) && -.1..1)
 
-
 shape texture {
   loop i=(width+1) [] loop j=(width+1) [] {
     xx = (i*cos(θ) - j*sin(θ))/stretch
     yy = (i*sin(θ) + j*cos(θ))*stretch
     hsb = color(xx, yy)
-    SQUARE [x i y j h hsb[0] sat hsb[1] b hsb[2]]
+    SQUARE [x i y j h hsb]
   }
 }
 
