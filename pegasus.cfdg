@@ -1,18 +1,14 @@
 // This is an imitation of Pegasus
 // (tessellation 105) by M. C. Escher.
 
-CF::Size = [s 3845 3845 x -2307 y -1538]
+CF::Size = [s 3.845 3.845 x -2.307 y -1.538]
 
 startshape tesselation []
 
 shape tesselation {
-  loop i=6 [x 769] loop j=8 [y 776] {
-    transform [z (-i-j)] if (mod(i+j,2)) {
-      pegasus [b .94 h 45 sat .36]
-    } else {
-      pegasus [b .65 h 15 sat .89]
-    }
-    markings []
+  loop i=6 [x .769] loop j=8 [y .776] {
+    pegasus [s .001 h if(mod(i+j,2), (45,.36,.94), (15,.89,.65)) z (-i-j)]
+    markings [s .001]
   }
 }
 
