@@ -1,0 +1,18 @@
+CF::Size = [x -184.5 y -184.5 s 800 800]
+
+startshape what [h 0..360]
+
+shape what {
+  loop i=64 [] {
+    if (0..2 < 1) {
+      xy = (123*(div(i,8)-2), 123*(mod(i,8)-2))
+      piece [x xy h (randint(2)*240) sat 0...8 b .9 s 500]
+    }
+    if (bitand(55614, 2^i)) {
+      block [s 115 x (123*div(i,4), 123*mod(i,4), 1000)]
+    }
+  }
+}
+
+shape block { SQUARE [] SQUARE [b 1 s .8] }
+shape piece { CIRCLE [] piece  [z 1 s .8] }

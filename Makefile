@@ -3,7 +3,7 @@ SIZE=1600
 
 all: epicycloid.png eyeball.png graph.png julia.png pegasus.png pinwheel.png \
      plaid.png rule110.png spark.png spline.png squiggles.png texture.png \
-     vines.png yin-yang.png
+     vines.png what-logo.png yin-yang.png
 
 clean:
 	rm *.png
@@ -46,6 +46,9 @@ texture.png: texture.cfdg
 
 vines.png: vines.cfdg
 	cfdg -s $(SIZE) vines.cfdg vines.png
+
+what-logo.png: what-logo.cfdg
+	cfdg -s $(SIZE) what-logo.cfdg what-logo.png
 
 yin-yang.png: yin-yang.cfdg
 	cfdg -s $(SIZE) yin-yang.cfdg yin-yang.png
