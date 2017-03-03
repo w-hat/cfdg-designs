@@ -1,12 +1,15 @@
 
 SIZE=1600
 
-all: epicycloid.png eyeball.png graph.png julia.png pegasus.png pinwheel.png \
-     plaid.png rule110.png spark.png spline.png squiggles.png texture.png \
-     vines.png what-logo.png yin-yang.png
+all: circle-of-what.png epicycloid.png eyeball.png graph.png julia.png \
+     pegasus.png pinwheel.png plaid.png rule110.png spark.png spline.png \
+     squiggles.png texture.png vines.png what-logo.png yin-yang.png
 
 clean:
 	rm *.png
+
+circle-of-what.png: circle-of-what.cfdg
+	cfdg -s $(SIZE) circle-of-what.cfdg circle-of-what.png
 
 epicycloid.png: epicycloid.cfdg
 	cfdg -s $(SIZE) epicycloid.cfdg epicycloid.png

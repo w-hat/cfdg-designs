@@ -1,0 +1,4 @@
+startshape what shape what { loop i=64 []
+  if ((mod(div(5429325329025438,2^i),2)) || (i>54 && i<>56 && i<>59)) {
+    SQUARE [s 23 x (24.6*(mod(i,16)+div(mod(i,16),4)), 24.6*div(i,16))]
+    what [b 1 r 0..360 s .55 a -.2 h 0..45 sat .85 z -1] }}
