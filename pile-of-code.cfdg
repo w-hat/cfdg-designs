@@ -1,0 +1,9 @@
+CF::Background=[b -1]
+startshape code [b 1]
+shape code {
+  loop i=63[] if (mod(div(63295362037614,2^mod(i,48)),2)) {
+    xy = (12.3*(mod(i,16)+div(mod(i,16),4)),12.3*div(i,16))
+    SQUARE [s 11.5 x xy]
+    code [x xy r 0..360 s .55 h 60..120 a -.4 sat .7 z -1]
+  }
+}

@@ -2,8 +2,9 @@
 SIZE=1600
 
 all: circle-of-what.png epicycloid.png eyeball.png graph.png julia.png \
-     pegasus.png pinwheel.png plaid.png rule110.png spark.png spline.png \
-     squiggles.png texture.png vines.png what-logo.png yin-yang.png
+     pegasus.png pile-of-code.png pinwheel.png plaid.png rule110.png \
+     spark.png spline.png squiggles.png texture.png vines.png what-logo.png \
+     yin-yang.png
 
 clean:
 	rm *.png
@@ -25,6 +26,9 @@ julia.png: julia.cfdg
 
 pegasus.png: pegasus.cfdg
 	cfdg -s $(SIZE) pegasus.cfdg pegasus.png
+
+pile-of-code.png: pile-of-code.cfdg
+	cfdg -s $(SIZE) pile-of-code.cfdg pile-of-code.png
 
 pinwheel.png: pinwheel.cfdg
 	cfdg -s $(SIZE) pinwheel.cfdg pinwheel.png
