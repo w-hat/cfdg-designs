@@ -3,8 +3,8 @@
 This repository contains a small collection of
 [CFDG](http://www.contextfreeart.org/gallery/)
 designs.
-Build the images locally with `cfdg` via `make`
-or view the published ones online:
+Build the images locally with `make` and `cfdg`
+or view the published images online:
 
 | [Yin Yang](http://www.contextfreeart.org/gallery/view.php?id=3739) | [Pinwheel](http://www.contextfreeart.org/gallery/view.php?id=3740) | [Eyeball](http://www.contextfreeart.org/gallery/view.php?id=3741) |
 |:------: | :------: | :------: |
@@ -15,3 +15,6 @@ or view the published ones online:
 | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3780.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3786.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3798.jpg) |
 | **[What Logo](https://www.contextfreeart.org/gallery/view.php?id=3813)** | **[Circle of What](https://www.contextfreeart.org/gallery/view.php?id=3815)** | **[Pile of Code](https://www.contextfreeart.org/gallery/view.php?id=3816)** |
 | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3813.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3815.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3816.jpg) |
+| **[Cubic Spline](https://www.contextfreeart.org/gallery/view.php?id=3819)**| | |
+| ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3819.jpg) | | |
+
