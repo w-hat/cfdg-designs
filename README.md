@@ -16,5 +16,5 @@ or view the published images online:
 | **[What Logo](https://www.contextfreeart.org/gallery/view.php?id=3813)** | **[Circle of What](https://www.contextfreeart.org/gallery/view.php?id=3815)** | **[Pile of Code](https://www.contextfreeart.org/gallery/view.php?id=3816)** |
 | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3813.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3815.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3816.jpg) |
 | **[Cubic Spline](https://www.contextfreeart.org/gallery/view.php?id=3819)** | **[Fourier Portal](https://www.contextfreeart.org/gallery/view.php?id=3828)** | |
-| ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3819.jpg) | https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3828.jpg | |
+| ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3819.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3828.jpg) | |
 
