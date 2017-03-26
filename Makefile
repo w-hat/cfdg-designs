@@ -1,8 +1,8 @@
 
 SIZE=1600
 
-all: circle-of-what.png epicycloid.png eyeball.png graph.png julia.png \
-     pegasus.png pile-of-code.png pinwheel.png plaid.png rule110.png \
+all: circle-of-what.png epicycloid.png eyeball.png fourier.png graph.png \
+     julia.png pegasus.png pile-of-code.png pinwheel.png plaid.png rule110.png \
      spark.png spline.png squiggles.png texture.png vines.png what-logo.png \
      yin-yang.png
 
@@ -17,6 +17,9 @@ epicycloid.png: epicycloid.cfdg
 
 eyeball.png: eyeball.cfdg
 	cfdg -s $(SIZE) eyeball.cfdg eyeball.png
+
+fourier.png: fourier.cfdg
+	cfdg -s $(SIZE) fourier.cfdg fourier.png
 
 graph.png: graph.cfdg
 	cfdg -s $(SIZE) graph.cfdg graph.png

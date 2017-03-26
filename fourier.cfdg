@@ -1,0 +1,85 @@
+// The Fourier transform is a portal to the frequency domain.
+
+CF::Background=[b -.8]
+
+N = 12
+Compression = 0
+
+C(θ) = (1..3)*cos(θ)
+S(θ) = (1..3)*sin(θ)
+
+ptre = (C(0),  C(30), C(60), C(90), C(120),C(150),
+        C(180),C(210),C(240),C(270),C(300),C(330))
+ptim = (S(0),  S(30), S(60), S(90), S(120),S(150),
+        S(180),S(210),S(240),S(270),S(300),S(330))
+
+startshape fourier [b 1 h 0..360]
+
+shape fourier {
+  fqre = dftre(ptre, ptim)
+  fqim = dftim(ptre, ptim)
+  
+  dcre = invdftre(fqre, fqim)
+  dcim = invdftim(fqre, fqim)
+  
+  loop i=N [] CIRCLE [x ptre[i] y ptim[i] s .18 b -1]
+  loop i=N [] CIRCLE [x dcre[i] y dcim[i] s .12 sat 1]
+  
+  loop i = (0, N, 1/500) [] {
+    xy = (invdftrek(fqre, fqim, i), invdftimk(fqre, fqim, i))
+    CIRCLE [x xy s .05 sat 1 z -1]
+    loop t = (0, 1, .005) [] {
+      wxy = xy*(t+(0...005), t+(0...005))
+      CIRCLE [x wxy s (.03*(1-t)) a -.99 z -2]
+    }
+  }
+}
+
+vector2 ei(θ) = (cos(θ), sin(θ))
+vector2 cmult(vector2 z1, vector2 z2) =
+  (z1[0]*z2[0] - z1[1]*z2[1], z1[0]*z2[1] + z1[1]*z2[0])
+
+vector12 dftre(vector12 re, vector12 im) =
+  (dftrek(re, im, 0), dftrek(re, im, 1), dftrek(re, im, 2),
+   dftrek(re, im, 3), dftrek(re, im, 4), dftrek(re, im, 5),
+   dftrek(re, im, 6), dftrek(re, im, 7), dftrek(re, im, 8),
+   dftrek(re, im, 9), dftrek(re, im,10), dftrek(re, im,11))
+vector12 dftim(vector12 re, vector12 im) =
+  (dftimk(re, im, 0), dftimk(re, im, 1), dftimk(re, im, 2),
+   dftimk(re, im, 3), dftimk(re, im, 4), dftimk(re, im, 5),
+   dftimk(re, im, 6), dftimk(re, im, 7), dftimk(re, im, 8),
+   dftimk(re, im, 9), dftimk(re, im,10), dftimk(re, im,11))
+
+dftrek(vector12 re, vector12 im, k) = dftreksum(re,im,k,0,0)
+dftimk(vector12 re, vector12 im, k) = dftimksum(re,im,k,0,0)
+
+dftreksum(vector12 re, vector12 im, k, n, sum) = if(n==N,sum,let(
+    kn = cmult((re[n], im[n]), ei(-360 * n * k / N));
+    dftreksum(re, im, k, n + 1, sum + kn[0])))
+dftimksum(vector12 re, vector12 im, k, n, sum) = if(n==N,sum,let(
+    kn = cmult((re[n], im[n]), ei(-360 * n * k / N));
+    dftimksum(re, im, k, n + 1, sum + kn[1])))
+
+vector12 invdftre(vector12 re, vector12 im) =
+  (invdftrek(re,im, 0), invdftrek(re,im, 1), invdftrek(re,im, 2),
+   invdftrek(re,im, 3), invdftrek(re,im, 4), invdftrek(re,im, 5),
+   invdftrek(re,im, 6), invdftrek(re,im, 7), invdftrek(re,im, 8),
+   invdftrek(re,im, 9), invdftrek(re,im,10), invdftrek(re,im,11))
+vector12 invdftim(vector12 re, vector12 im) =
+  (invdftimk(re,im, 0), invdftimk(re,im, 1), invdftimk(re,im, 2),
+   invdftimk(re,im, 3), invdftimk(re,im, 4), invdftimk(re,im, 5),
+   invdftimk(re,im, 6), invdftimk(re,im, 7), invdftimk(re,im, 8),
+   invdftimk(re,im, 9), invdftimk(re,im,10), invdftimk(re,im,11))
+
+invdftrek(vector12 re,vector12 im,k)=invdftreksum(re,im,k,0,0)/N
+invdftimk(vector12 re,vector12 im,k)=invdftimksum(re,im,k,0,0)/N
+
+invdftreksum(vector12 re, vector12 im, k, n, sum) =
+  if(n == (N - Compression), sum, let(
+    kn = cmult((re[n], im[n]), ei(360 * n * k / N));
+    invdftreksum(re, im, k, n + 1, sum + kn[0])))
+invdftimksum(vector12 re, vector12 im, k, n, sum) =
+  if(n == (N - Compression), sum, let(
+    kn = cmult((re[n], im[n]), ei(360 * n * k / N));
+    invdftimksum(re, im, k, n + 1, sum + kn[1])))
+
