@@ -1,26 +1,63 @@
-V = (0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,
-     0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9)
+V0 = (0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,
+      0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9,0..9)
+
+C() = if (0..1 > 0.6, 1, 0)
 
 E = (C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),
      C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),
      C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),
      C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C(),C())
 
-C() = if (0..1 > 0.6, 1, 0)
+startshape graph (0, V0) [h 18]
+
+shape graph (natural iteration, vector20 V) {
+  if (iteration == 200) {
+    loop i=10 [] CIRCLE [x V[2*i] y V[2*i+1]]
+    loop i=10 [] loop j=(i) [] if (connected(i,j)) {
+      vi = (V[2*i], V[2*i+1])
+      vj = (V[2*j], V[2*j+1])
+      loop t=(0,1,.001) [] {
+        edge = (t,t)*vi + (1-t,1-t)*vj
+        CIRCLE [s .1 x adjust(V, edge, i, j, 0)]
+      }
+    }
+  } else {
+    loop i=10 [] {
+      vi = (V[2*i], V[2*i+1])
+      CIRCLE [x vi a -0.95 b 0.95 sat 1 h (i*36)]
+    }
+    graph (iteration+1, shift(V)) []
+  }
+}
 
 connected(i,j) = if (j > i, connected(j,i),
   E[i*(i-1)/2 - j + i - 1])
 
-startshape graph
+vector20 shift(vector20 V) = (S(V,0),S(V,1),S(V,2),
+   S(V,3),S(V,4),S(V,5),S(V,6),S(V,7),S(V,8),
+   S(V,9),S(V,10),S(V,11),S(V,12),S(V,13),S(V,14),
+   S(V,15),S(V,16),S(V,17),S(V,18),S(V,19))
 
-shape graph {
-  loop i=10 [] CIRCLE [x V[2*i] y V[2*i+1]]
-  loop i=10 [] loop j=(i) [] if (connected(i,j)) {
-    vi = (V[2*i], V[2*i+1])
-    vj = (V[2*j], V[2*j+1])
-    loop t=(0,1,.001) [] {
-      et = (t,t)*vi + (1-t,1-t)*vj
-      CIRCLE [s .1 x et]
-    }
-  }
-}
+S(vector20 V, u) = sum(V, u, 0, 0)
+
+sum(vector20 V, u, v, total) = if (v == 20, total,
+  sum(V,u,v+1,total+part(V, u, v)))
+
+part(vector20 V, u, v) = if (u == v, 0.82*V[u], let(
+  i = floor(u/2); j = floor(v/2); k = mod(u, 2);
+  vi = (V[2*i], V[2*i+1]); vj = (V[2*j], V[2*j+1]);
+  if (i == j, 0, if (connected(i,j),
+    let (tgt = vj+unit(vi-vj)*(3,3); 0.01*tgt[k]),
+    let (tgt = vi+unit(vi-vj)/mag(vi-vj); 0.01*tgt[k])))))
+
+vector2 adjust(vector20 V, vector2 e,i,j,k) = if(k==10, e,
+  if ((k == i) || (k == j), adjust(V,e,i,j,k+1), let(
+    vk = (V[2*k], V[2*k+1]);
+    wt = 1/((1 + mag1(e-vk))^3);
+    en = (1-wt,1-wt)*e + (wt,wt)*(e + unit(e-vk));
+    adjust(V,en,i,j,k+1))))
+
+mag1(vector2 v) = sqrt(v[0]^2 + v[1]^2)
+vector2 mag(vector2 v) = let(m=mag1(v); (m,m))
+vector2 unit(vector2 v) = v/mag(v)
+
