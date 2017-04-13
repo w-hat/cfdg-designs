@@ -1,0 +1,46 @@
+width = 400
+range = 360
+cutoff = 360
+repeat = 2
+speed = 0.0125
+win = (-.1725, -.1475, 1.0225, 1.0475)
+
+CF::Size = [s width width x (-(width+1)/2) y (-(width+1)/2)]
+
+startshape mandelbrot [b 1 sat 1]
+
+shape mandelbrot {
+  loop re = (win[0], win[1], (win[1]-win[0])/(width+1)) [x 1]
+    loop im = (win[2], win[3], (win[3]-win[2])/(width+1)) [y 1]
+      pixel((re, im)) []
+}
+
+shape pixel (vector2 cc) {
+  i = sum_iterations((0,0), cc, 4, repeat) / repeat
+  SQUARE [h (range*i/cutoff) b -floor(i/cutoff)]
+}
+
+sum_iterations(vector2 zz, vector2 cc, bail, n) = if (n==0, 0,
+  iterations(zz,cc,bail,0) + sum_iterations(zz,cc,10*bail,n-1))
+
+iterations(vector2 zz, vector2 cc, bail, depth) =
+  if (depth >= cutoff, cutoff, let (
+    z_next = cadd(cmult(zz, zz), cc);
+    mag = cmag(z_next);
+    if (mag > bail,
+      smooth(depth, mag, bail, cc),
+      iterations(z_next, cc, bail, depth + 1))))
+
+smooth(depth, mag, bail, vector2 cc) = let(
+  d = depth - sqrt((mag - bail)/(bail*bail - bail + cmag(cc)));
+  cutoff/(1 + exp(-speed * d)))
+
+vector2 cmult(vector2 z1, vector2 z2) =
+  (z1[0]*z2[0] - z1[1]*z2[1], z1[0]*z2[1] + z1[1]*z2[0])
+
+vector2 cadd(vector2 z1, vector2 z2) = (z1[0]+z2[0],z1[1]+z2[1])
+
+cmag(vector2 zz) = let(
+  magsq = zz[0]^2 + zz[1]^2;
+  if (magsq < 0, 0, sqrt(magsq)))
+
