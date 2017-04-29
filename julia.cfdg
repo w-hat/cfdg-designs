@@ -1,33 +1,29 @@
-width = 800
-cutoff = 1100
-c = -0.1, 0.651
+N = 40
+S = 20
 
-CF::Size = [s width width x (-width/2) y (-width/2)]
+startshape grid [b 1 sat 1]
 
-startshape julia [b 1 sat 1]
-
-shape julia {
-  loop xx = (-1.5, 1.5, 3/width) [x 1] {
-    loop yy = (-1.5, 1.5, 3/width) [y 1] {
-      pixel(xx, yy) []
-    }
-  }
+shape grid {
+  loop re = (-1.9, 0.69, 2.6/N) [x S]
+    loop im = (-1.3, 1.29, 2.6/N) [y S]
+      julia ((re,im)) []
 }
 
-shape pixel(number real, number imaginary) {
-  i = iterations(real, imaginary, 0)
-  SQUARE [hue mod(i,360) b -floor(i/cutoff)]
+shape julia (vector2 c) {
+  loop re = (-1.5, 1.5, 3/S) [x 1]
+    loop im = (-1.5, 1.5, 3/S) [y 1]
+      pixel(re, im, c) []
 }
 
-iterations(real, imaginary, depth) = let (
+shape pixel(number real, number imaginary, vector2 c) {
+  i = iterations(real, imaginary, c, 0)
+  SQUARE [hue mod(i, 360) b -floor(i/360)]
+}
+
+iterations(real, imaginary, vector2 c, depth) = let (
   next_real = real^2 - imaginary^2 + c[0];
   next_imaginary = 2*real*imaginary + c[1];
-  if (depth >= cutoff,
-    cutoff,
-    if (next_real^2 + next_imaginary^2 > 4,
-      depth + 1,
-      iterations(next_real, next_imaginary, depth + 1)
-    )
-  )
-)
+  if (depth >= 360, 360,
+    if (next_real^2 + next_imaginary^2 > 4, depth+1,
+      iterations(next_real, next_imaginary, c, depth+1))))
 

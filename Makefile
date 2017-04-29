@@ -25,7 +25,7 @@ graph.png: graph.cfdg
 	cfdg -s $(SIZE) graph.cfdg graph.png
 
 julia.png: julia.cfdg
-	cfdg -s $(SIZE) julia.cfdg julia.png
+	cfdg -s $(SIZE) -b 0 julia.cfdg julia.png
 
 mandelbrot.png: mangelbrot.cfdg
 	cfdg -s $(SIZE) mandelbrot.cfdg mandelbrot.png
