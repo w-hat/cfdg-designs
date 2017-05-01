@@ -17,6 +17,8 @@ or view the published images online:
 | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3813.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3815.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3816.jpg) |
 | **[Cubic Spline](https://www.contextfreeart.org/gallery/view.php?id=3819)** | **[Fourier Portal](https://www.contextfreeart.org/gallery/view.php?id=3828)** | **[Painting Graph](https://www.contextfreeart.org/gallery/view.php?id=3830)** |
 | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3819.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3828.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3830.jpg) |
-| **[Mandelbrot Set](https://www.contextfreeart.org/gallery/view.php?id=3834)** | **[Julia Sets](https://www.contextfreeart.org/gallery/view.php?id=3838)** | |
-| ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3834.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3838.jpg) | |
+| **[Mandelbrot Set](https://www.contextfreeart.org/gallery/view.php?id=3834)** | **[Julia Sets](https://www.contextfreeart.org/gallery/view.php?id=3838)** | **[Burning Ship](https://www.contextfreeart.org/gallery/view.php?id=3840)** |
+| ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3834.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3838.jpg) | ![](https://www.contextfreeart.org/gallery/uploads/b5/c5/b5c57863e51f2da25307c6ddd00329d0/thumb_3840.jpg) |
+
+
 

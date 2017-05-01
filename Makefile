@@ -1,13 +1,16 @@
 
 SIZE=1600
 
-all: circle-of-what.png epicycloid.png eyeball.png fourier.png graph.png \
-     julia.png mandelbrot.png pegasus.png pile-of-code.png pinwheel.png \
-     plaid.png rule110.png spark.png spline.png squiggles.png texture.png \
-     vines.png what-logo.png yin-yang.png
+all: burning-ship.png circle-of-what.png epicycloid.png eyeball.png \
+     fourier.png graph.png julia.png mandelbrot.png pegasus.png \
+     pile-of-code.png pinwheel.png plaid.png rule110.png spark.png spline.png \
+     squiggles.png texture.png vines.png what-logo.png yin-yang.png
 
 clean:
 	rm *.png
+
+burning-ship.png: burning-ship.cfdg
+	cfdg -s $(SIZE) -b 0 burning-ship.cfdg burning-ship.png
 
 circle-of-what.png: circle-of-what.cfdg
 	cfdg -s $(SIZE) circle-of-what.cfdg circle-of-what.png

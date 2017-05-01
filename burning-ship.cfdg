@@ -1,0 +1,36 @@
+width = 400
+
+startshape ship [b 1 sat 1]
+
+shape ship {
+  loop re=(-1.8, -1.7, .1/(width-1)) [x 1]
+    loop im=(0.02, -0.08, -.1/(width-1)) [y 1]
+      pixel((re, im)) []
+}
+
+shape pixel(vector2 c) {
+  i = iterations((0, 0), c, 0)
+  if (i == 360) {
+    SQUARE [h 30 sat .26 b -.7]
+  } else {
+    SQUARE [h (i+120*(i>60)) b (-(c[1]>0)/4)]
+  }
+}
+
+iterations(vector2 zp, vector2 c, depth) =
+  if (depth == 360, 360, let(
+    zq = (abs(zp[0]), abs(zp[1]));
+    zn = cmult(zq, zq) + c;
+    mag = cmag(zn);
+    if (mag > 4, smooth(depth + 1, mag, c),
+      iterations(zn, c, depth + 1))))
+
+smooth(depth, mag, vector2 c) = let(
+  d = depth - sqrt((mag - 4)/(12 + cmag(c)));
+  240/(1 + exp(0.125 * d)) + 20)
+
+vector2 cmult(vector2 z0, vector2 z1) =
+  (z0[0]*z1[0]-z0[1]*z1[1], z0[0]*z1[1]+z0[1]*z1[0])
+
+cmag(vector2 zz) = sqrt(zz[0]^2 + zz[1]^2)
+
