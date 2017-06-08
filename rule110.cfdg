@@ -1,24 +1,37 @@
-CF::Impure = 1
-CF::Size = [s 400 400 x 200 y 200]
-
 // https://en.wikipedia.org/wiki/Rule_110
 
-// 111   110   101   100   011   010   001   000
-//  0     1     1     0     1     1     1     0
+CF::Impure = 1
+CF::Background=[b -1]
+CF::Size = [s 400 400 x 199.5 y 199.5]
+
+startshape planet [b 1]
+
+shape planet {
+  row ((0,0,0,0,0,0,0,0)) []
+  spaceship (5) [x (-127 + 32) y (-130 + 32) z 1 sat 1]
+}
+
+shape row (vector8 state) {
+  loop i=400 [x -1] if (at(state, i)) SQUARE []
+  if (state[7] < 2^49) row (next(state)) [y -1]
+}
+
+shape spaceship (natural depth) {
+  SQUARE [x  2.5        s 6 1]
+  SQUARE [       y -2.5 s 1 6]
+  SQUARE [x  1   y -2   s 1 5]
+  SQUARE [x  2   y -1   s 5 1]
+  SQUARE [x  1.5 y   -2 s 4 1]
+  SQUARE [x  2   y -1.5 s 1 4]
+  TRIANGLE [x .75 y -.75 s 2.5 r 45 sat -1 b -.5]
+  if (depth>0) spaceship(depth--1) [s 1.6 r 28 x -22 y 13]
+}
 
 rule110(lb, mb, rb) =
   if (lb > 0, bitxor(mb, rb), bitor(mb, rb))
 
-startshape row ((0,0,0,0,0,0,0,0)) []
-
-shape row (vector8 state) {
-  loop i=(400) [x -1] {
-    if (bitand(state[div(i,50)], bitleft(1, mod(i,50)))) {
-      SQUARE []
-    }
-  }
-  if (state[7] < 2^49) { row (next(state)) [y -1] }
-}
+at(vector8 state, i) =
+  bitand(state[div(i,50)], bitleft(1, mod(i,50)))
 
 vector8 next(vector8 S) =
  (nextpart(S,0,1,1), nextpart(S,1,0,0),
