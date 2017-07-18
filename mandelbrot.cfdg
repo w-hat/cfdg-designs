@@ -1,17 +1,31 @@
 width = 400
+//width = 1600
 range = 360
+//cutoff = 360
+//cutoff = 540
 cutoff = 360
 repeat = 2
-speed = 0.0125
-win = (-.1725, -.1475, 1.0225, 1.0475)
+//repeat = 8
+speed = 0.017
+//speed = 0.0125
+//speed = 0.00775
+//speed = 0.0075
+//speed = 0.05
+//win = (-.1725, -.1475, 1.0225, 1.0475)
+//win = (-2.25, 0.75, -1.5, 1.5)
+win = (-3, 3, -3, 3)
+//win = (-.7435669 - .0022878/2, -.7435669 + .0022878/2, .1314023 - .0022878/2, .1314023 + .0022878/2)
+//sz = .007
+//win = (-0.6755565298029893 - sz, -0.6755565298029893 + sz, -0.4569410933471392 - sz, -0.4569410933471392 + sz)
+//win = (0.3461404798262853 - sz, 0.3461404798262853 + sz, -0.3734439001677483 - sz, -0.3734439001677483 + sz)
 
 CF::Size = [s width width x (-(width+1)/2) y (-(width+1)/2)]
 
 startshape mandelbrot [b 1 sat 1]
 
 shape mandelbrot {
-  loop re = (win[0], win[1], (win[1]-win[0])/(width+1)) [x 1]
-    loop im = (win[2], win[3], (win[3]-win[2])/(width+1)) [y 1]
+  loop im = (win[0], win[1], (win[1]-win[0])/(width+1)) [x 1]
+    loop re = (win[2], win[3], (win[3]-win[2])/(width+1)) [y 1]
       pixel((re, im)) []
 }
 
@@ -25,10 +39,12 @@ sum_iterations(vector2 zz, vector2 cc, bail, n) = if (n==0, 0,
 
 iterations(vector2 zz, vector2 cc, bail, depth) =
   if (depth >= cutoff, cutoff, let (
-    z_next = cadd(cmult(zz, zz), cc);
+    zzq = (abs(zz[0]), abs(zz[1]));
+    z_next = cadd(cmult(zzq, zzq), cc);
     mag = cmag(z_next);
     if (mag > bail,
       smooth(depth, mag, bail, cc),
+      //depth,
       iterations(z_next, cc, bail, depth + 1))))
 
 smooth(depth, mag, bail, vector2 cc) = let(

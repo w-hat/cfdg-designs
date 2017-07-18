@@ -1,0 +1,84 @@
+// https://en.wikipedia.org/wiki/Spontaneous_generation
+// https://en.wikipedia.org/wiki/Rule_30
+
+CF::Impure = 1
+CF::Size = [s 400 400 x 199.5 y 199.5]
+
+rs() = rand(2^50)
+state0 = (rs(),rs(),rs(),rs(),rs(),rs(),rs(),rs())
+side() = randint(2)
+
+vector8 next(vector8 S) =
+ (nextpart(S, 0, side(), 1), nextpart(S, 1, 0, 0),
+  nextpart(S, 2, 0, 0), nextpart(S, 3, 0, 0),
+  nextpart(S, 4, 0, 0), nextpart(S, 5, 0, 0),
+  nextpart(S, 6, 0, 0), nextpart(S, 7, 0, 0))
+
+nextpart(vector8 S, pix, p0, bix) = if (bix==50, p0, let(
+  lb = if (bix==49,
+    if (pix < 7, bit(S[pix+1], 0), side()),
+    bit(S[pix], bix+1));
+  mb = bit(S[pix], bix);
+  rb = if (bix==0, bit(S[pix-1], 49), bit(S[pix], bix-1));
+  partial = bitor(p0, bitleft(rule30(lb, mb, rb), bix));
+  nextpart(S, pix, partial, bix + 1)))
+
+bit(bitvector, ix) =
+  bitright(bitand(bitvector, bitleft(1, ix)), ix)
+
+rule110(lb, mb, rb) = if (lb, bitxor(mb,rb), bitor(mb,rb))
+rule30(lb, mb, rb) =
+  if (lb,bit(bitand(bitnot(mb),bitnot(rb)),0),bitor(mb,rb))
+
+fly1 = (158716766720002,  605298876489992,
+        1003819891671880, 550696195016,
+        950527802212352,  493097126183664,
+        805306496,        131072)
+fly2 = (208091710754818,  576971680908738,
+        1003819891622768, 550696195016,
+        844974685945856,  545628617308732,
+        805306496,        131072)
+fly3 = (158613687504898,  564875577782690,
+        1003819891680006, 550696195016,
+        844974685945856,  561024462225920,
+        805306616,        131072)
+
+startshape generation
+
+shape generation {
+  row (state0, 0) []
+  draw_fly (fly1) [x -80 y -350]
+  draw_fly (fly2) [x -90 y -300 r 35 sat .5 b .5 s 1.5]
+  draw_fly (fly3) [x -130 y -250 r 50 sat 1 b 1 s 2.25]
+}
+
+shape row (vector8 state, natural depth) {
+  loop i=400 [] {
+    set = bitand(state[div(i, 50)], bitleft(1, mod(i, 50)))
+    if (set) { SQUARE [x -i] }
+  }
+  if (depth < 400) { row (next(state), depth+1) [y -1] }
+}
+
+shape draw_fly(vector8 fly) {
+  loop rr=(0,360,6) [] {
+    draw (fly) [x (cos(rr), sin(rr)) z 1 sat -1 b 1 a -.95]
+  }
+  draw (fly) [z 2]
+}
+
+shape draw (vector8 pixels) {
+  loop i=4 [] loop j=50 [] {
+    draw_pixel(pixels[i],   i, j) []
+    draw_pixel(pixels[i+4], i, j) [z -1.5 sat -.5 h 40 ]
+  }
+}
+
+shape draw_pixel (natural bits, natural i, natural j) {
+  if (mod(div(bits, 2^(j)), 2)) {
+    xy = (mod(j, 10), i*5 + div(j, 10))
+    SQUARE [x xy]
+    SQUARE [x (18 - xy[0]) y xy[1]]
+  }
+}
+

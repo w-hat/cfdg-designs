@@ -4,7 +4,8 @@ SIZE=1600
 all: burning-ship.png circle-of-what.png epicycloid.png eyeball.png \
      fourier.png graph.png julia.png mandelbrot.png pegasus.png \
      pile-of-code.png pinwheel.png plaid.png rule110.png spark.png spline.png \
-     squiggles.png texture.png vines.png what-logo.png yin-yang.png
+     spontaneous-generation.png squiggles.png texture.png vines.png \
+     what-logo.png yin-yang.png
 
 clean:
 	rm *.png
@@ -30,7 +31,7 @@ graph.png: graph.cfdg
 julia.png: julia.cfdg
 	cfdg -s $(SIZE) -b 0 julia.cfdg julia.png
 
-mandelbrot.png: mangelbrot.cfdg
+mandelbrot.png: mandelbrot.cfdg
 	cfdg -s $(SIZE) mandelbrot.cfdg mandelbrot.png
 
 pegasus.png: pegasus.cfdg
@@ -53,6 +54,9 @@ spark.png: spark.cfdg
 
 spline.png: spline.cfdg
 	cfdg -s $(SIZE) spline.cfdg spline.png
+
+spontaneous-generation.png: spontaneous-generation.cfdg
+	cfdg -s $(SIZE) spontaneous-generation.cfdg spontaneous-generation.png
 
 squiggles.png: squiggles.cfdg
 	cfdg -s $(SIZE) squiggles.cfdg squiggles.png
